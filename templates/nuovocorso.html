@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block corsonuovo %}
+<form class = "myform" action="{{ url_for('nuovocorso') }}" method="post">
+    <div class="form-group">
+      <label>Nome</label>
+      <input type="text" class="form-control" placeholder="inserire nome del corso" name = "nome" required>
+    </div>
+    <div class="form-group">
+      <label>Numero di lezioni</label>
+      <input type="number" class="form-control" placeholder="inserire numero di lezioni" name = "numLezioni" min="0" required>
+    </div>
+    <div class="form-group">
+      <label>Capienza Massima</label>
+      <input type="number" class="form-control" placeholder="inserire capienza massima" name = "capMax" min="0" required>
+    </div>
+    <div class="form-group">
+        <label>Livello di difficoltà</label>
+        <input type="number" class="form-control" placeholder="inserire livello di difficoltà" name = "dif" max="5" min="0" required>
+    </div>
+    <label>Seleziona istruttore:</label>
+    <select name="istruttore" required>
+        {%for i in range(0,lenIst)%}
+        <option value="{{Ist[i].CodFiscale}}">{{Ist[i].Nome + " " + Ist[i].Cognome}}</option>
+        {%endfor%}
+    </select>
+    <br>
+    <br>
+    <div class="row h-100">
+      <div class="col-sm-12 my-auto">
+        <div class="card card-block w-25">
+          <button type="submit" class="btn">Inserisci</button>
+        </div>
+      </div>
+   </div>
+</form> 
+{% endblock %}

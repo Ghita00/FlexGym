@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block problem %}
+<br>
+<h2 class="text-center">OPS...</h2>
+<h4 class="text-center">Qualcosa è andato storto</h4>
+{%with messages = get_flashed_messages() %}
+{%if messages%}
+    {%for msg in messages%}
+        <p class="text-center">{{msg}}</p>
+    {%endfor%}
+{%endif%}
+{%endwith%}
+<div class="text-center">torna pure alla home premendo sul titolo oppure <a href="{{ url_for('home') }}">qui</a><br>ci scusiamo del disagio</div>
+{% endblock %}

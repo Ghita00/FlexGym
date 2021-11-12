@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block aggiornamenti %}
+{%with messages = get_flashed_messages() %}
+{%if messages%}
+    {%for msg in messages%}
+        <p class="text-center">{{msg}}</p>
+    {%endfor%}  
+{%endif%}
+{%endwith%}
+<br>
+<h2 class="text-center">Impostazioni palestra</h2>
+<br>
+<div class="container">
+    <div class="row">
+      <div class="col">
+        <h3><b>Impostazioni Sale</b></h3>
+        <form action="{{ url_for('gestionepalestra')}}" method="post">
+            <div class="form-group" >
+                <label>Numero capienza <b>sala pesi</b></label>
+                <input type="number" class="form-control" placeholder="inserire max slot per le sala pesi" name = "npesi" value="{{Pesi}}">
+            </div>
+            <div class="container">
+                <div class="row">
+                    
+                        <button type="submit" class="btn" name="botton" value="P1">Aggiorna</button>
+                 
+                </div>
+            </div>
+            <br>
+            <div class="form-group" >
+                <label>Numero capienza <b>sala fitness</b></label>
+                <input type="number" class="form-control" placeholder="inserire max slot per le sala fitness" name = "nfit" value="{{Fit}}">
+            </div>
+            <div class="container">
+                <div class="row">
+                    <button type="submit" class="btn" name="botton" value="F2">Aggiorna</button>
+                </div>
+            </div>
+        </form>
+      </div>
+    </div>
+</div>
+<br>
+<hr>
+<br>
+<div class="container">
+    <div class="row">
+      <div class="col">
+        <h3><b>Impostazioni Corsi</b></h3>
+        {%for i in range(0,lenCorsi)%}
+        <hr>
+        <form action="{{ url_for('gestionepalestra') }}" method="post">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    Nome: <b>{{corso[i].Nome}}</b><br>
+                    Numero di lezioni: {{corso[i].NumLezioni}}<br>  
+                    Livello di difficoltà: {{corso[i].LivelloDifficoltà}}<br>  
+                    <div class="form-group" >
+                        <label>Capienza Massima:</label>
+                        <input type="number" class="form-control" placeholder="inserire capienza massima per Pilates" name = "Capienza" value = "{{corso[i].CapienzaMax}}">
+                    </div>
+                    Istruttore: {{corso[i].NomeIst + " " + corso[i].Cognome}}<br>
+                </div>
+                <div class="col">
+                    <button type="submit" class="btn" name="botton" value="U{{corso[i].IdCorso}}">Aggiorna</button>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <button type="submit" class="btn" name="botton" value="D{{corso[i].IdCorso}}">Cancella corso</button>
+                </div>
+            </div>
+        </div>
+        </form>
+        {%endfor%}
+    </div>
+      <div class="col">
+        <a href ="{{ url_for('nuovocorso') }}" class="link-area">
+            <div class="card text-center">
+                <img class="card-img-top" src="{{url_for('static', filename='c7.png')}}" alt="Card image cap" id="custom_2">
+                <div class="card-body">
+                    <h5 class="card-title">Crea nuovo corso</h5>
+                </div>
+            </div>
+        </a>
+      </div>
+    </div>
+</div>
+
+
+{% endblock %}

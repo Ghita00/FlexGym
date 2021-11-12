@@ -1,0 +1,275 @@
+{% extends 'base.html' %}
+
+{% block text %}
+{%with messages = get_flashed_messages() %}
+{%if messages%}
+    {%for msg in messages%}
+        <p class="text-center">{{msg}}</p>
+    {%endfor%}
+{%endif%}
+{%endwith%}
+<br>
+<p class="text-center">
+    Gestisci liberatamente i corsi e le sale che vuoi prenotare <br>
+    Utilizza la barra di ricerca per vedere la disponibilità nel giorno in cui desideri <br>
+    In caso ci ripensi puoi sempre cancellarle dalla <a href="{{ url_for('area') }}">tua area</a> !
+</p>
+<br>
+{% endblock %}
+
+{% block search %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-2">Seleziona data:</div>
+        <div class="col-md-4">
+            <form action="{{ url_for('prenot') }}" method="post">
+                <input type="date" name = "data"  value="{{dataAct}}"> 
+                <button type="submit" class="btn" name="botton" value="Update">Cerca</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block slot_pesi %}
+<div class="d-flex justify-content-center">
+    <h2 class="mb-0"><b>Sala pesi </b></h2>
+</div>
+<hr>
+{%if lenPesi == 0%}
+<div class="d-flex justify-content-center">
+    <h3 class="mb-0">Nessuno slot disponibile</h3>
+</div>
+<hr>
+{%else%}
+<!--ciclo for per i vari slot-->
+<form action="{{ url_for('prenot') }}" method="post">
+{%for i in range(0, lenPesi)%}
+<!--ciclo for per i vari slot-->
+{%for s in lisSlotP|sort(attribute = 'IdSlot')%}
+{%endfor%}
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <h5 class="mb-0"><b>Slot {{lisSlotP[i].IdSlot}}</b> </h5>
+            <div>Data: {{lisSlotP[i].Data}}</div>
+            <div>Orario Inizio: {{lisSlotP[i].OraInizio}}</div>
+            <div>Orario Fine: {{lisSlotP[i].OraFine}}</div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="col-sm">Prenotazioni effettuate : {{(lisSlotP[i].PostiOcc)}} / {{(SalaP[0].CapienzaMax) | int}}</div>
+        </div>
+        
+        <div class="col-md-4">
+            <button type="submit" class="btn" name="botton" value="S{{lisSlotP[i].IdSlot}}">Prenotati lo Slot</button>
+        </div>
+    </div>
+</div>
+<hr>
+{%endfor%}
+</form>
+{%endif%}
+{% endblock %}
+
+{% block slot_fitness %}
+<div class="d-flex justify-content-center">
+    <h2 class="mb-0"><b>Sala fitness </b></h2>
+</div>
+<hr>
+{%if lenFitness == 0%}
+<div class="d-flex justify-content-center">
+    <h3 class="mb-0">Nessuno slot disponibile</h3>
+</div>
+<hr>
+{%else%}
+<!--ciclo for per i vari slot-->
+<form action="{{ url_for('prenot') }}" method="post">
+{%for i in range(0, lenFitness)%}
+<!--ciclo for per i vari slot-->
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <h5 class="mb-0"><b>Slot {{lisSlotF[i].IdSlot}}</b> </h5>
+            <div>Data: {{lisSlotF[i].Data}}</div>
+            <div>Orario Inizio: {{lisSlotF[i].OraInizio}}</div>
+            <div>Orario Fine: {{lisSlotF[i].OraFine}}</div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="col-sm">Prenotazioni effettuate : {{(lisSlotF[i].PostiOcc)}} / {{(SalaF[0].CapienzaMax) | int}}</div>
+        </div>
+        
+        <div class="col-md-4">
+            <button type="submit" class="btn" name="botton" value="S{{lisSlotF[i].IdSlot}}">Prenotati lo Slot</button>
+        </div>
+    </div>
+</div>
+<hr>
+{%endfor%}
+</form>
+{%endif%}
+
+<br>
+<br>
+{% endblock %}
+
+{% block Karate %}
+<div class="text-center">
+    <b class = "text-center">Attenzione:</b> tutte le lezioni hanno una durata di <i>50 minuti</i> indipendentemnte dalla tipologia 
+</div>
+
+<div id="course"></div>
+<br>
+<div class="d-flex justify-content-center">
+    <h2 class="mb-0"><b>Corso di Karate </b></h2>
+</div>
+<hr>
+{%if lenKarate == 0%}
+<div class="d-flex justify-content-center">
+    <h3 class="mb-0">Nessuno slot disponibile</h3>
+</div>
+<hr>
+{%else%}
+<!--ciclo for per i vari slot-->
+{%for i in range(0, lenKarate)%}
+<form action="{{ url_for('prenot') }}" method="post">
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <h5 class="mb-0"><b>Lezione {{lisLezioniK[i].IdLezione}}</b></h5>
+            <div>Data: {{lisLezioniK[i].Data}}</div>
+            <div>Orario: {{lisLezioniK[i].Ora}}</div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="col-sm">Prenotazioni effettuate :  {{(lisLezioniK[i].PostiOcc)}} / {{Karate}}</div>
+        </div>
+
+        <div class="col-md-4">
+            <button type="submit" class="btn" name="botton" value="L{{lisLezioniK[i].IdLezione}}">Prenotati la Lezione</button>
+        </div>
+    </div>
+</div>
+</form>
+<hr>
+{%endfor%}
+{%endif%}
+{% endblock %}
+
+{% block Yoga %}
+<div id="course"></div>
+<br>
+<div class="d-flex justify-content-center">
+    <h2 class="mb-0"><b>Corso di Yoga </b></h2>
+</div>
+<hr>
+{%if lenYoga == 0%}
+<div class="d-flex justify-content-center">
+    <h3 class="mb-0">Nessuno slot disponibile</h3>
+</div>
+<hr>
+{%else%}
+<!--ciclo for per i vari slot-->
+{%for i in range(0, lenYoga)%}
+<form action="{{ url_for('prenot') }}" method="post">
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <h5 class="mb-0"><b>Slot {{lisLezioniY[i].IdLezione}} </b></h5>
+            <div>Data: {{lisLezioniY[i].Data}}</div>
+            <div>Orario: {{lisLezioniY[i].Ora}}</div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="col-sm">Prenotazioni effettuate : {{(lisLezioniY[i].PostiOcc)}} / {{Yoga}}</div>
+        </div>
+
+        <div class="col-md-4">
+            <button type="submit" class="btn" name="botton" value="L{{lisLezioniY[i].IdLezione}}">Prenotati la Lezione</button>
+        </div>
+    </div>
+</div>
+</form>
+<hr>
+{%endfor%}
+{%endif%}
+{% endblock %}
+
+{% block Zumba %}
+<div id="course"></div>
+<br>
+<div class="d-flex justify-content-center">
+    <h2 class="mb-0"><b>Corso di Zumba </b></h2>
+</div>
+<hr>
+{%if lenZumba == 0%}
+<div class="d-flex justify-content-center">
+    <h3 class="mb-0">Nessuno slot disponibile</h3>
+</div>
+<hr>
+{%else%}
+<!--ciclo for per i vari slot-->
+{%for i in range(0, lenZumba)%}
+<form action="{{ url_for('prenot') }}" method="post">
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <h5 class="mb-0"><b>Slot {{lisLezioniZ[i].IdLezione}} </b></h5>
+            <div>Data: {{lisLezioniZ[i].Data}}</div>
+            <div>Orario: {{lisLezioniZ[i].Ora}}</div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="col-sm">Prenotazioni effettuate : {{(lisLezioniZ[i].PostiOcc)}} / {{Zumba}}</div>
+        </div>
+
+        <div class="col-md-4">
+            <button type="submit" class="btn" name="botton" value="L{{lisLezioniZ[i].IdLezione}}">Prenotati la Lezione</button>
+        </div>
+    </div>
+</div>
+</form>
+<hr>
+{%endfor%}
+{%endif%}
+{% endblock %}
+
+{% block Pilates %}
+<div id="course"></div>
+<br>
+<div class="d-flex justify-content-center">
+    <h2 class="mb-0"><b>Corso di Pilates </b></h2>
+</div>
+<hr>
+{%if lenPilates == 0%}
+<div class="d-flex justify-content-center">
+    <h3 class="mb-0">Nessuno slot disponibile</h3>
+</div>
+<hr>
+{%else%}
+<!--ciclo for per i vari slot-->
+{%for i in range(0, lenPilates)%}
+<form action="{{ url_for('prenot') }}" method="post">
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <h5 class="mb-0"><b>Slot {{lisLezioniP[i].IdLezione}} </b></h5>
+            <div>Data: {{lisLezioniP[i].Data}}</div>
+            <div>Orario: {{lisLezioniP[i].Ora}}</div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="col-sm">Prenotazioni effettuate : {{(lisLezioniP[i].PostiOcc)}} / {{Pilates}}</div>
+        </div>
+
+        <div class="col-md-4">
+            <button type="submit" class="btn" name="botton" value="L{{lisLezioniP[i].IdLezione}}">Prenotati la lezione</button>
+        </div>
+    </div>
+</div>
+</form>
+<hr>
+{%endfor%}
+{%endif%}
+{% endblock %}

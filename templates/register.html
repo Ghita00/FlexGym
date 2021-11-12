@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block enter %}
+{%with messages = get_flashed_messages() %}
+{%if messages%}
+    {%for msg in messages%}
+        <p class="text-center">{{msg}}</p>
+    {%endfor%}
+{%endif%}
+{%endwith%}
+<br>
+<form class = "myform" action="{{ url_for('register') }}" method="post">
+  <div class="form-group">
+    <label>Nome</label>
+    <input type="text" class="form-control" placeholder="inserire nome" name = "nome" required>
+  </div>
+  <div class="form-group">
+    <label>Cognome</label>
+    <input type="text" class="form-control" placeholder="inserire cognome" name = "cognome" required>
+  </div>
+  <div class="form-group">
+    <label>Codice Fiscale</label>
+    <input type="text" class="form-control" placeholder="inserire codice fiscle" name = "cf" required size="16">
+  </div>
+
+  <label>Sesso</label>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="form-check">
+          <label class="form-check-label">
+            Maschio
+          </label>
+          <input class="form-check-input" type="radio" name = "sesso" value="M" checked="checked">
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-check">
+          <label class="form-check-label">
+            Femmina
+          </label>
+          <input class="form-check-input" type="radio" name = "sesso" value="F">
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+
+  <div class="form-group">
+    <label>Data Nascita</label>
+    <input type="date" class="form-control" name = "data" required>
+  </div>
+
+  <div class="form-group">
+    <label>Peso</label>
+    <input type="number" class="form-control" placeholder="inserire peso" name = "peso" value = "60">
+  </div>
+
+  <div class="form-group">
+    <label>Altezza in CM</label>
+    <input type="number" class="form-control" placeholder="inserire altezza in CM" name = "altezza" value = "150">
+  </div>
+  <div class="form-group">
+    <label>Telefono</label>
+    <input type="tel" class="form-control" placeholder="inserire telefono" name = "tel" required>
+  </div>
+  <div class="form-group">
+    <label>Email</label>
+    <input type="email" class="form-control" placeholder="inserire email" name = "email" required>
+  </div>
+  <div class="form-group">
+    <label>Password</label>
+    <input type="password" class="form-control" placeholder="inserire password" name = "password" required>
+  </div>
+  <label>Tipo di abbonamento</label>  
+
+  <div class="container">
+      <div class="radio col-xs-12">
+        <label>
+          <input class="form-check-input" type="radio" name="abbonamento" value="1" checked>
+          Gold
+        </label>
+      </div>
+
+      <div class="radio col-xs-12">
+        <label>
+          <input class="form-check-input" type="radio" name="abbonamento" value="2">
+          Silver
+        </label>
+      </div>
+
+      <div class="radio col-xs-12">
+        <label>
+          <input class="form-check-input" type="radio" name="abbonamento" value="3">
+          Basic
+        </label>
+      </div>
+  
+    </div>
+
+  
+  
+  
+  <br>
+  <div class="container">
+    <div class="row">
+      <div class="col text-center">
+        <button type="submit" class="btn ">Registrati</button>
+      </div>
+    </div>
+  </div>
+  
+</form>
+{% endblock %}
+

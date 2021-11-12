@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block serv %}
+{%with messages = get_flashed_messages() %}
+{%if messages%}
+    {%for msg in messages%}
+        <br>
+        <h1 class="text-center">{{msg}}</h1>
+    {%endfor%}
+{%endif%}
+{%endwith%}
+<br>
+{%if access == True%}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <a href ="{{ url_for('gestionepalestra') }}" class="link-area">
+                <div class="card text-center">
+                    <img class="card-img-top" src="{{url_for('static', filename='s1.png')}}" alt="Card image cap" id="custom_2">
+                    <div class="card-body">
+                        <h5 class="card-title">Gestione palestra</h5>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col">
+            <a href ="{{ url_for('gestionepersonale') }}" class="link-area">
+                <div class="card text-center">
+                    <img class="card-img-top" src="{{url_for('static', filename='c8.png')}}" alt="Card image cap" id="custom_2">
+                    <div class="card-body">
+                        <h5 class="card-title">Gestione personale</h5>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+{%else%}
+
+{%endif%}
+<div>
+{%if access != True%}
+    <div class="container">
+        <div class="row">
+          <div class="col">
+            <a href ="{{ url_for('mex') }}" class="link-area">
+                <div class="card text-center">
+                    <img class="card-img-top" src="{{url_for('static', filename='s2.png')}}" alt="Card image cap" id="custom_2">
+                    <div class="card-body">
+                        <h5 class="card-title">Visualizza messaggi</h5>
+                    </div>
+                </div>
+            </a>
+          </div>
+          <div class="col">
+            <a href ="{{ url_for('scheda') }}" class="link-area">
+                <div class="card text-center">
+                    <img class="card-img-top" src="{{url_for('static', filename='c7.png')}}" alt="Card image cap" id="custom_2">
+                    <div class="card-body">
+                        <h5 class="card-title">Crea Scheda</h5>
+                    </div>
+                </div>
+            </a>
+          </div>
+        </div>
+    </div>
+    {%endif%}
+</div>
+{% endblock %}
+
+{% block enter %}
+</p><h3 id="a1" class="text-center"><a href="{{ url_for('logout') }}" class="btn">Termina sessione</a></h3>
+{% endblock %}
+

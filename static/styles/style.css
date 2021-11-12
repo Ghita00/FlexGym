@@ -1,0 +1,132 @@
+body {
+    padding-top: 25px;
+    padding-left: 8%;
+    padding-right: 8%;
+    font-family: Raleway, Monserrat, Open Sans;
+    font-size: 18px;
+}
+
+a{
+    color:  #ff6600;
+    padding: 3 px;  
+}
+
+a:hover{
+    color: white;
+    background-color: #ff6600;
+    text-decoration: none;
+}
+
+b{
+    color:#ff6600;
+}
+
+#title{
+    color: #ff6600;
+    
+}
+
+#title:hover{
+    background-color: white;
+}
+
+#carouselExampleIndicators{
+    width: 1024px;
+    margin: 0 auto;
+}
+
+#custom_2{
+    margin: 0 auto;
+    height: 100px;
+    width: 100px;
+}
+
+#reg{
+    color: #ff6600;
+}
+
+#reg:hover{
+    background-color: white;
+}
+
+.white{
+    color: white;
+    font-size: 45px;
+}
+
+.custom_1 {
+  height: 350px;
+  width: 1024px;
+}
+
+.card {
+    margin: 0 auto; /* Added */
+    float: none; /* Added */
+    margin-bottom: 10px; /* Added */
+    border: none;
+}
+
+.myform{
+    margin: 0 auto;
+    height: auto;
+    width: 450px;
+}
+
+.btn{
+    color: white;
+    background-color: #ff6600;
+}
+
+.btn-card{
+     color: #ff6600;
+}
+.btn-card:hover{
+    color: #ff6600;
+    background-color: white;
+}
+
+.link-area{
+    color : black;
+    background-color : white;
+    width: 33.3%
+}
+
+.link-area:hover{
+    color : black;
+    background-color : white;
+}
+
+.customer_trainer{
+    margin: 0 auto;
+    height: 350px;
+    width: 225px;
+}
+
+.spazio{
+    margin-left: 20px;
+    margin-right:20px;
+    margin-top:0px;
+}
+
+.rid{
+    padding:5px;
+    height: 30%;
+    width:30%
+}
+
+.infoall{
+    padding-left: 30px;
+}
+
+.txt{
+    padding:20px;
+}
+
+.padding-left{
+    padding: 50px;
+}
+
+input{
+    width: 40%;
+}
+

@@ -1,0 +1,198 @@
+{% extends 'base.html' %}
+
+{% block carosel %}
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" >
+    <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="{{url_for('static', filename='car_1.jpg')}}" class="custom_1"/>
+            <div class="card-img-overlay">
+                <h5 class="card-title white text-center">Ritrova la tua forma</h5>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="{{url_for('static', filename='car_3.jpg')}}" class="custom_1"/>
+            <div class="card-img-overlay">
+                <h5 class="card-title white text-center">In piena sicurezza</h5>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="{{url_for('static', filename='car_2.jpg')}}" class="custom_1"/>
+            <div class="card-img-overlay">
+                <h5 class="card-title white text-center">Cambia te stess*</h5>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block values %}
+<br>
+<h2><p class="text-center font-weight-bold" id = 'a1'><b>Soddisfatti e protetti solo con FLEXGYM</b></p></h2>
+<p class="text-center">
+    Nata nel comune di Portogruaro, Flexgym è la tua prima scelta per quanto riguarda affidabilità, sicurezza e risultati
+    con la possibilità di prenotare sale e/o corsi in scaglioni di tempo ben precisi nella nostra struttura sarà perciò evitata qualsiasi
+    possibilità di assembramento.
+    Ritrova la tua forma fisica dopo le diverse quarantene che si sono susseguite, facendoti seguire da un personal trainer
+    capace di stabile un percorso personale che ti porterà ad essere felice di te stess*.
+</p>
+<h3 id="a1" class="text-center"><a href="{{url_for('register')}}" class="btn">Abbonati ora</a></h3></br>
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            <div class="card text-center" style="width: 18rem;">
+                <img class="card-img-top" src="{{url_for('static', filename='c1.png')}}" alt="Card image cap" id="custom_2">
+                <div class="card-body">
+                    <p class="card-text">Prenota la sala pesi e inzia a scolpire il tuo fisico.</p>
+                    <a href="{{url_for('prenot')}}" class="btn ">Prenota</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card text-center" style="width: 18rem;">
+                <img class="card-img-top" src="{{url_for('static', filename='c2.png')}}" alt="Card image cap" id="custom_2">
+                <div class="card-body">
+                    <p class="card-text">La nostra palestra offre continuamente corsi come zumba, yoga, karate e molti altri</p>
+                    <a href="{{ url_for('prenot', _anchor='course') }}" class="btn ">Prenota</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<p class="text-center   ">
+    Potete prenotare attraverso l’utilizzo del nostro sito lo slot o la lezione che fa per voi. Negli orari messi a disposizione,
+    sia giornalieri che pomeridiani o serali, potrai utilizzare le sale in piena sicurezza e nel rispetto di tutte le norme “Covid Free”
+    che potete trovare <a href="https://www.palestreitaliane.it/regolamento-covid-19" target="_blank">qui</a> oppure in fondo al sito.
+    Ogni volta che volete prenotare uno slot vi saranno mostrati orario di inizio e fine, i posti liberi e la categoria a cui fanno riferimento.<br>
+    Vi preghiamo di collaborare nel rispetto delle regole per la continuazione del servizio e la salute di tutti quanti.
+</p>
+{% endblock%}
+
+{% block login %}
+<br>
+<h3 id="a2" class="text-center"><b>Seleziona un piano e registrati</b></h3>
+<p class="text-center">
+    Per accedere ai nostri servizi è necessario sottoscrivere un abbonamento della durata di un mese. <br>
+    La gamma degli abbonamenti messi a disposizione è composta da 3 tipologie differenti ognuna con i propri costi e benefici.
+    <br>
+    Tutti quanti prevedono la possibilità di prenotare quando si vuole, sia sale che lezioni, inoltre la possibilità di contattare
+    grazie al nostro sito uno o più personal trainer per eventuali dubbi e/o chiarimenti <br>
+    I tre abbonamenti sono: <br>
+</p>
+<br>
+<div class="container" >
+    <div class="row">
+        <div class="col-sm">
+            <div class="card text-center border-0" style="width: 18rem;">
+                <img class="card-img-top" src="{{url_for('static', filename='c4.png')}}" alt="Card image cap" id="custom_2">
+                <div class="card-body">
+                    <p class="card-text">Utilizzo sia del servizio docce che delle cassette di sicurezza</p>
+                    <a href="{{url_for('register')}}" class="btn">100€</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card text-center" style="width: 18rem;">
+                <img class="card-img-top" src="{{url_for('static', filename='c5.png')}}" alt="Card image cap" id="custom_2">
+                <div class="card-body">
+                    <p class="card-text">Utilizzo del servizio docce e dei servizi di default</p>
+                    <a href="{{url_for('register')}}" class="btn ">70€</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card text-center" style="width: 18rem;">
+                <img class="card-img-top" src="{{url_for('static', filename='c6.png')}}" alt="Card image cap" id="custom_2">
+                <div class="card-body">
+                    <p class="card-text">Offerta base senza vantaggi solo servizi di default</p>
+                    <a href="{{url_for('register')}}" class="btn">45€</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card text-center" >
+    <div class="card-body" id="custom2">
+        <h5 class="card-title">Hai già un piano?</h5>
+        <p class="card-text">Premi qui per poter accedere alla tua area riservata</p>
+        <a href="{{ url_for('login') }}" class="btn">MY AREA</a>
+    </div>
+</div>
+<br>
+{% endblock %}
+
+{% block trainer %}
+<h3 class="text-center"><b>Scegli il tuo trainer</b></h3>
+<p class="text-center" id="a3">
+    Hai dubbi su come devi fare un esercizio, ti sei appena iscritto in palestra e hai bisogno di una scheda d'allenamento fatta
+    da un professionista in base alle tue necessità oppure hai sentito un dolore strano durante un allenamento e non sai che cos'è?
+    Attraverso il nostro sito puoi contattare uno dei nostri preparatissimi membri dello staff sempre a disposizione per le vostre
+    innumerevoli richieste. Premi su "Mettiti in contatto" e scrivi al tuo personal trainer.
+</p>
+<div class="container" >
+    <div class="row">
+        <div class="col-sm">
+            <div class="card text-center" style="width: 18rem;">
+                <img class="card-img-top customer_trainer" src="{{url_for('static', filename='trainer1.png')}}" alt="Card image cap" >
+                <div class="card-body">
+                    <p class="card-text">Bragagnolo Martina <br> Classe '93 <br> Corpo Libero</p>
+                    <a href="{{ url_for('mex_trainer', name='Martina') }}" class="btn">Contattala</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card text-center" style="width: 18rem;">
+                <img class="card-img-top customer_trainer" src="{{url_for('static', filename='trainer2.png')}}" alt="Card image cap" >
+                <div class="card-body">
+                    <p class="card-text">Takahashi Miki <br> Classe '96 <br> Karate</p>
+                    <a href="{{ url_for('mex_trainer', name='Miki') }}" class="btn">Contattala</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card text-center" style="width: 18rem;">
+                <img class="card-img-top customer_trainer" src="{{url_for('static', filename='SmithJason.jpg')}}" alt="Card image cap" >
+                <div class="card-body">
+                    <p class="card-text">Smith Matthew <br> Classe '95 <br> BodyBuilder</p>
+                    <a href="{{ url_for('mex_trainer', name='Matthew') }}" class="btn">Contattalo</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-sm">
+            <div class="card text-center border-0" style="width: 18rem;">
+                <img class="card-img-top customer_trainer" src="{{url_for('static', filename='trainer4.png')}}" alt="Card image cap" >
+                <div class="card-body">
+                    <p class="card-text">Rizzi Jason <br> Classe '90 <br> Pesi Massimi</p>
+                    <a href="{{ url_for('mex_trainer', name='Jason') }}" class="btn">Contattalo</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card text-center" style="width: 18rem;">
+                <img class="card-img-top customer_trainer" src="{{url_for('static', filename='trainer5.png')}}" alt="Card image cap" >
+                <div class="card-body">
+                    <p class="card-text">Brioschi Franco <br> Classe '97 <br> Atletica Leggera</p>
+                    <a href="{{ url_for('mex_trainer', name='Franco') }}" class="btn">Contattalo</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card text-center" style="width: 18rem;">
+                <img class="card-img-top customer_trainer" src="{{url_for('static', filename='CrocchiRebecca.jpg')}}" alt="Card image cap" >
+                <div class="card-body">
+                    <p class="card-text">Crocchi Rebecca <br> Classe '95 <br> Fisioterapista</p>
+                    <a href="{{ url_for('mex_trainer', name='Rebecca') }}" class="btn">Contattala</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

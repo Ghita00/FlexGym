@@ -1,0 +1,286 @@
+{% extends 'base.html' %}
+
+{% block data %}
+    {%with messages = get_flashed_messages() %}
+        {%if messages%}
+            {%for msg in messages%}
+                <br>
+                <h1 class="text-center">{{msg}}</h1>                
+            {%endfor%}
+        {%endif%}
+    {%endwith%}
+<br>
+<h3 class="text-center">I miei dati</h3>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="d-flex justify-content-center">
+                Nome: {{User[0].Nome}}<br>
+                Cognome: {{User[0].Cognome}}<br>
+                Sesso: {{User[0].Sesso}}<br>
+                Codice Fiscale: {{User[0].CodFiscale}}<br>
+                Data di nascita: {{User[0].DataNascita}}<br>                
+            </div>
+        </div>
+        <div class="col">
+            <div class="d-flex justify-content-center">
+                Altezza: {{User[0].Altezza}}<br>
+                Peso: {{User[0].Peso}}<br>
+                Email: {{User[0].Mail}}<br>
+                Telefono: {{User[0].Telefono}}<br>
+                Abbonamento: {%if User[0].AbbonamentoId == 1%}
+                             Gold 
+                             {%elif User[0].AbbonamentoId == 2%}
+                             Silver 
+                             {%else%} 
+                             Basic 
+                             {%endif%}
+            </div>  
+        </div>
+    </div>
+</div>
+<div class="d-flex justify-content-center">
+    <a class="btn" href="{{ url_for('aggiornadati') }}">Aggiorna i tuoi dati</a>
+</div>
+<hr>
+{% endblock %}
+
+
+{% block service%}
+<br>
+<h3><p class="text-center">I nostri servizi</p></h3>
+<div class="card-deck">
+    <a href ="{{ url_for('prenot') }}" class="link-area">
+        <div class="card text-center">
+            <img class="card-img-top" src="{{url_for('static', filename='c1.png')}}" alt="Card image cap" id="custom_2">
+            <div class="card-body">
+                <h5 class="card-title">Prenota la tua sala</h5>
+            </div>
+        </div>
+    </a>
+    <a href ="{{ url_for('prenot', _anchor='course') }}" class="link-area">
+        <div class="card text-center">
+            <img class="card-img-top" src="{{url_for('static', filename='c2.png')}}" alt="Card image cap" id="custom_2">
+            <div class="card-body">
+                <h5 class="card-title">Prenota una lezione di un corso</h5>
+            </div>
+        </div>
+    </a>
+    <a href ="{{ url_for('home', _anchor='a3') }}" class="link-area">
+        <div class="card text-center">
+            <img class="card-img-top" src="{{url_for('static', filename='s3.png')}}" alt="Card image cap" id="custom_2">
+            <div class="card-body">
+                <h5 class="card-title">Contatta un trainer</h5>
+            </div>
+        </div>
+    </a>
+</div>
+{% endblock %}
+
+{% block servizi %}
+<h4 class="text-center">Servizi aggiuntivi</h4><br>
+<div class="container">
+    <div class="row">
+        <div class="col text-center">
+            <!--Controllo gli abbonamenti abilitino ai servizi-->
+            {% if User[0].AbbonamentoId <= 2 %}
+            <a class="btn spazio" href="{{ url_for('QRdoccia') }}">QR Doccia</a>
+            {% if User[0].AbbonamentoId == 1 %}
+            <a class="btn" href="{{ url_for('QRCassette') }}">QR Cassette</a>
+            {%endif%}
+            {%endif%}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block prenot %}
+<hr>
+<h3><p class="text-center">Le tue prenotazioni</p></h3>
+<h5><p class="text-center">Lista delle tue prenotazioni di <b>oggi</b>!</p></h5>
+{%if lenTS == 0 and lenTL == 0%}
+<br>
+<div class="text-center">
+    <h4>Nessuna prenotazione rilevata</h4>
+ </div>
+
+{%else%}
+{%for i in range(0,lenTS)%}
+<hr>
+<form action="{{ url_for('area') }}" method="post">
+    <div class="container">
+        <div class="row">
+          <div class="col-sm">
+            <h5 class="mb-0">Slot {{Tslot[i].IdSlot}} </h5>
+            <div>Sala:<b> {% if Tslot[i].SalaId == 1%}Pesi {%else%}Fitness {%endif%}</b></div>
+            <div>Data: {{Tslot[i].Data}}</div>
+          </div>
+          <div class="col-sm">
+            <div>Orario Inizio: {{Tslot[i].OraInizio}}</div>
+            <div>Orario Fine: {{Tslot[i].OraFine}}</div>
+          </div>
+          <div class="col-sm">
+            <button type="submit" class="btn" name="botton" value="S{{Tslot[i].IdSlot}}">Cancella prenotazione</button>
+          </div>
+        </div>
+    </div>
+</form>
+{%endfor%}
+<br>
+{%for i in range(0,lenTL)%}
+<hr>
+<form action="{{ url_for('area') }}" method="post">
+    <div class="container">
+        <div class="row">
+          <div class="col-sm">
+            <h5 class="mb-0">Lezione {{Tlen[i].IdLezione}} </h5>
+            <div>Corso:<b> {% if Tlen[i].CorsoId == 1%}Karate {%elif Tlen[i].CorsoId == 2%}Yoga {%elif Tlen[i].CorsoId == 3%}Zumba {%else%}Pilates {%endif%}</b></div>
+            <div>Data: {{Tlen[i].Data}}</div>
+          </div>
+          <div class="col-sm">
+            <div>Orario Inizio: {{Tlen[i].Ora}}</div>
+          </div>
+          <div class="col-sm">
+            <button type="submit" class="btn" name="botton" value="L{{Tlen[i].IdLezione}}">Cancella prenotazione</button>
+          </div>
+        </div>
+      </div>    
+    </div>
+</form>
+<br>
+{%endfor%}
+{%endif%}
+<hr>
+<h5><p class="text-center">Lista di tutte le tue prenotazioni <b>attive</b> e <b>future!</b></p></h5>
+{%if lenSlot == 0 and lenLezioni == 0%}
+<br>
+<div class="text-center">
+    <h4>Nessuna prenotazione rilevata</h4>
+ </div>
+
+{%else%}
+{%for i in range(0,lenSlot)%}
+<hr>
+<form action="{{ url_for('area') }}" method="post">
+    <div class="container">
+        <div class="row">
+          <div class="col-sm">
+            <h5 class="mb-0">Slot {{Slot[i].IdSlot}} </h5>
+            <div>Sala: <b>{% if Slot[i].SalaId == 1%}Pesi {%else%}Fitness {%endif%}</b></div>
+            <div>Data: {{Slot[i].Data}}</div>
+          </div>
+          <div class="col-sm">
+            <div>Orario Inizio: {{Slot[i].OraInizio}}</div>
+            <div>Orario Fine: {{Slot[i].OraFine}}</div>
+          </div>
+          <div class="col-sm">
+            <button type="submit" class="btn" name="botton" value="S{{Slot[i].IdSlot}}">Cancella prenotazione</button>
+          </div>
+        </div>
+      </div>
+</form>
+{%endfor%}
+{%for i in range(0,lenLezioni)%}
+<hr>
+<form action="{{ url_for('area') }}" method="post">
+    <div class="container">
+        <div class="row">
+          <div class="col-sm">
+            <h5 class="mb-0">Lezione {{Lezione[i].IdLezione}} </h5>
+            <div>Corso:<b> {% if Lezione[i].CorsoId == 1%}Karate {%elif Lezione[i].CorsoId == 2%}Yoga {%elif Lezione[i].CorsoId == 3%}Zumba {%else%}Pilates {%endif%}</b></div>
+            <div>Data: {{Lezione[i].Data}}</div>
+          </div>
+          <div class="col-sm">
+            <div>Orario Inizio: {{Lezione[i].Ora}}</div>
+          </div>
+          <div class="col-sm">
+            <button type="submit" class="btn" name="botton" value="L{{Lezione[i].IdLezione}}">Cancella prenotazione</button>
+          </div>
+        </div>
+    </div>
+</form>
+{%endfor%}
+{%endif%}
+{% endblock %}
+
+{% block scheda %}
+<hr>
+<h3><p class="text-center">La tua scheda</p></h3>
+<h5><p class="text-center">Buon allenamento!</p></h5>
+<br>
+{%if LenList == 0 %}
+
+<p class="text-center">Ancora nessuna scheda disponibile</p>
+
+{%else%}
+
+<div class="container infoall">
+    <div class="row">
+        <div class="col">
+            <h5>Tipo di allenamento: {{ListaScheda[0].TipoAllenamento}}</h5>
+            <h5>Difficoltà Allenamento: {{ListaScheda[0].LivelloDifficoltà}}/5</h5>
+            <h5>Allenamenti settimanali consigliati: {{ListaScheda[0].AllenamentiSettimanali}}</h5>
+            <h5>Kcal totali: {{KcalTot}}</h5>
+        </div>
+        <div class="col">
+            <h5>Data inizio allenamento: {{ListaScheda[0].DataInizio}}</h5>
+            <h5>Data fine allenamento: {{ListaScheda[0].DataFine}}</h5>
+        </div>
+    </div>
+    <h4><i>{{ListaScheda[0].Nome + " " + ListaScheda[0].Cognome}}</i> ha creato la tua scheda</h4>
+</div>
+
+<br>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-offset-4 col-md-4">
+            <div class="col-sm text-center"> <b>Nome esercizio</b></div>
+        </div>
+        <div class="col-md-offset-2 col-md-2">
+            <div class="col-sm text-center"><b>Parte del corpo interessata</b></div>
+        </div>
+        <div class="col-md-offset-1 col-md-1">
+            <div class="col-sm text-center"><b>Ripetizioni</b></div>
+        </div>
+        <div class="col-md-offset-2 col-md-2">
+            <div class="col-sm text-center"><b>Kcal</b></div>
+        </div>
+        <div class="col-md-offset-1 col-md-1">
+            <div class="col-sm text-center"><b>Esecuzione</b></div>
+        </div>
+    </div>
+</div>
+{%for i in range(0, LenEs)%}
+<hr>
+<div class="container">
+    <div class="row">
+        <div class="col-md-offset-4 col-md-4">
+            <div class="col-sm">{{ListaEs[i].Nome}}</div>
+        </div>
+        <div class="col-md-offset-2 col-md-2">
+            <div class="col-sm">{{ListaEs[i].Corpo}} </div>
+        </div>
+        <div class="col-md-offset-1 col-md-1">
+            <div class="col-sm text-center">{{ListaEs[i].Ripetizioni}} </div>
+        </div>
+        <div class="col-md-offset-2 col-md-2">
+            <div class="col-sm text-center">{{ListaEs[i].ApportoCalorico}} kcal</div>
+        </div>
+        <div class="col-md-offset-1 col-md-1">
+            <div class="col-sm text-center"><a href="{{ListaEs[i].Esecuzione}}" target="_blank">Mostra</a> </div>
+        </div>
+    </div>
+</div>
+
+{%endfor%}
+
+{%endif%}
+{% endblock %}
+
+{% block enter %}
+<br>
+<br>
+</p><h3 id="a1" class="text-center"><a href="{{ url_for('logout') }}" class="btn">Esci</a></h3>
+{% endblock %}
+

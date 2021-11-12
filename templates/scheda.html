@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block crea_scheda %}
+{%with messages = get_flashed_messages() %}
+{%if messages%}
+    {%for msg in messages%}
+        <p class="text-center">{{msg}}</p>
+    {%endfor%}
+{%endif%}
+{%endwith%}
+<form class = "myform" action="{{ url_for('scheda') }}" method="post">
+    <br>
+    <!--Menu a tendina sugli utenti-->
+    <label>Seleziona utente:</label>
+    <select name="utente" required>
+        {%for i in range(0,lenUsers)%}
+          <option value="{{Users[i].CodFiscale}}">{{Users[i].Nome + " " + Users[i].Cognome}}</option>
+        {%endfor%}
+    </select>
+
+    <div class="form-group">
+      <label>Tipo di Allenamento</label>
+      <input type="text" class="form-control" placeholder="Inserire tipo allenamento" name = "tipo" required>
+    </div>
+    Livello di difficoltà
+    <div class="container">
+        <div class="row">
+          <div class="col">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="difficoltà" id="exampleRadios1" value="1" checked>
+              <label class="form-check-label" for="exampleRadios1">
+                1
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="difficoltà" id="exampleRadios2" value="2">
+              <label class="form-check-label" for="exampleRadios2">
+                2
+              </label>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="difficoltà" id="exampleRadios3" value="3">
+              <label class="form-check-label" for="exampleRadios3">
+                3
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="difficoltà" id="exampleRadios3" value="3">
+              <label class="form-check-label" for="exampleRadios3">
+              4
+              </label>
+            </div>
+          </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Allenamenti settimanali</label>
+      <input type="number" class="form-control" placeholder="Inserire numero di allenamenti" name = "nallenamenti" min="1" max="5">
+    </div>
+    <div class="form-group">
+        <label>Data Inizio</label>
+        <input type="date" class="form-control" name = "dataInizio" required>
+    </div>
+    <div class="form-group">
+        <label>Data Fine</label>
+        <input type="date" class="form-control" name = "dataFine" required>
+    </div>
+    <div class="form-group">
+        <label>Numero di esercizi</label>
+        <input type="number" class="form-control" placeholder="Numero di esercizi che si vuole inserire" name = "nes" min="0" required>
+    </div>
+    <div class="d-flex justify-content-center">
+      <button type="submit" class="btn ">Crea</button>
+    </div>
+    
+  </form>
+
+
+{% endblock %}

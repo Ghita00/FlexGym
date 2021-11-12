@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block lista %}
+{%with messages = get_flashed_messages() %}
+{%if messages%}
+    {%for msg in messages%}
+        <p class=text-center>{{msg}}</p>
+    {%endfor%}
+{%endif%}
+{%endwith%}
+<br>
+{%if LenMex == 0%}
+<h2 class="text-center">Nessun messaggio disponibile</h2>
+{%else%}
+{%for i in range(0, LenMex)%}
+<div class="container">
+    <div class="row">
+      <div class="col-4">
+        <h4 class="mb-0"><b>{{LMex[i].Nome}}</b></h4>
+        <div>Data: {{LMex[i].Data}}</div>
+        <div>Mail: {{LMex[i].Mail}}</div>
+        <div>Telefono: {{LMex[i].Telefono}}</div>
+      </div>
+      <div class="col-8">
+        <div>"{{LMex[i].Testo}}"</div>
+      </div>
+    </div>
+</div>
+
+<hr>
+{%endfor%}
+{%endif%}
+
+
+
+{%endblock%}

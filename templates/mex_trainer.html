@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block data_trainer %}
+{%with messages = get_flashed_messages() %}
+{%if messages%}
+    {%for msg in messages%}
+        <p class="text-center">{{msg}}</p>
+    {%endfor%}
+{%endif%}
+{%endwith%}
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        Nome: {{ persona.Nome }}<br>
+        Cognome: {{ persona.Cognome }}<br>
+        Specializzazione: {{ persona.Specializzazione }}<br>
+    </div>
+    
+</div>
+
+<div class="d-flex justify-content-center">
+   
+ </div>
+<div class="p-40">
+    
+</div>
+
+<br>
+{% endblock %}
+
+{% block contact_trainer %}
+
+<div class="d-flex justify-content-center">
+    <form action="{{ url_for('mex_trainer', name = persona.Nome) }}" method="post">
+        <div class="d-flex justify-content-center">
+            <div >Scrivi il tuo messaggio...</div><br>
+        </div>
+        <div class="form-group">
+            <textarea class="form-control"  rows="6" cols="50" name="Text" required></textarea>
+        </div>
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="btn">Invia tutto</button>
+        </div>
+        
+    </form>
+ </div>
+
+{% endblock%}

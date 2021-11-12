@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block gestionepersonale %}
+{%with messages = get_flashed_messages() %}
+{%if messages%}
+    {%for msg in messages%}
+        <p class="text-center">{{msg}}</p>
+    {%endfor%}
+{%endif%}
+{%endwith%}
+<br>
+<h3><p class="text-center">Personale della palestra</p></h3>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            {%for i in range(0,lenDip)%}
+            <form action="{{ url_for('staff') }}" method="post">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        Nome: <b>{{dip[i].Nome}}</b><br>
+                        Cognome: {{dip[i].Cognome}}<br>
+                        Sesso: {{dip[i].Sesso}}<br>
+                        Codice Fiscale: {{dip[i].CodFiscale}}<br>
+                        Data di nascita: {{dip[i].DataNascita}}<br><br>
+                        Altezza: {{dip[i].Altezza}}<br>
+                        Peso: {{dip[i].Peso}}<br>
+                    </div>
+                    <div class="col">
+                        Email: {{dip[i].Mail}}<br>
+                        Telefono: {{dip[i].Telefono}}<br>
+                        Ruolo: {{dip[i].Ruolo}}<br>
+                        Specializzazione: {{dip[i].Specializzazione}}<br>
+                        <br>
+                        <br>
+                        <button type="submit" class="btn" name="botton" value="{{dip[i].CodFiscale}}">Cancella dipendente</button>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            </form>
+            {%endfor%}
+        </div>
+        <div class="col-md-auto">
+            <form action="{{ url_for('new_member') }}" method="post">
+                <div class="col">
+                    <a href ="{{ url_for('new_member') }}" class="link-area">
+                        <div class="card text-center">
+                            <img class="card-img-top" src="{{url_for('static', filename='c7.png')}}" alt="Card image cap" id="custom_2">
+                            <div class="card-body">
+                                <h5 class="card-title">Aggiungi personale</h5>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                </form>
+        </div>
+    </div>
+</div>
+
+<br>
+
+{%endblock%}

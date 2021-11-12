@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block enter %}
+{%with messages = get_flashed_messages() %}
+{%if messages%}
+    {%for msg in messages%}
+        <br>
+        <h5 class="text-center">{{msg}}</h5>                
+    {%endfor%}
+{%endif%}
+{%endwith%}
+
+<br>
+<form class = "myform" action="{{ url_for('login') }}" method="post">
+    <div class="form-group">
+        <label>Email address</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email" name = "email">
+    </div>
+    <div class="form-group">
+        <label>Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name = "password">
+    </div>
+
+    <button type="submit" class="btn">Login</button><br>
+    <br>
+    <a href="{{ url_for('register') }}" id="reg">
+        Se non hai un account registrati
+    </a>
+</form>
+
+
+
+{% endblock %}

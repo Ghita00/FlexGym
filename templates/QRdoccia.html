@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block QR %}
+<br>
+<h3 class="text-center">Servizio Docce</h3>
+<img src="{{url_for('static', filename='qr1.jpg')}}" class="rounded mx-auto d-block rid" alt="...">
+<div class="container">
+    <div class="row">
+        <div class="col text-center">
+            <a class="btn spazio" href="{{ url_for('area') }}">Torna alla Tua Area</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

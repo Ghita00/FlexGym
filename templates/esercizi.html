@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block ins_es %}
+<form class = "myform" action="{{ url_for('esercizi') }}" method="post">
+<br>
+<h2 class="text-center">Inserire gli esercizi per la scheda nr {{SchedaAc}} </h2>
+
+<div class="form-group">
+    <input type="hidden" class="form-control" placeholder="IdScheda" name = "Id" required value="{{SchedaAc}}">
+</div>
+
+<div class="form-group">
+    <input type="hidden" class="form-control" placeholder="Numero di esercizi" name = "nes" required value="{{Nes}}">
+</div>
+
+{%for i in range(0, Nes)%} 
+<hr>
+<h4><b>Esercizio n.{{i+1}}</b></h4>
+<select name="esercizio{{i}}" required>
+    {%for i in range(0,lenEs)%} 
+    <option value="{{Es[i].IdEsercizio}}">{{Es[i].Nome + " " + Es[i].Corpo}}</option>
+    {%endfor%}
+</select>
+<br>
+<br>
+
+<div class="container">
+    <div class="row">
+        <label>Numero di ripetizioni</label>
+        <div class="col-sm-3">
+            <input type="number" class="form-control" name = "rip{{i}}" min="0" max="100" value="1" required>
+        </div>
+      </div>
+</div>
+{%endfor%}
+<br>
+<div class="d-flex justify-content-center">
+    <button type="submit" class="btn ">Inserisci</button>
+</div>
+</form>
+{%endblock%}
